@@ -5,17 +5,17 @@ const {
     _findById,
     _update,
     _delete
-} = require('../controllers/roles');
+} = require('../controllers/tipoPagos');
 
 const router = express.Router();
 
 // CREATE
 router.post('/signup', async (req, res) => {
     try {
-        const rol = await _create(req.body);
+        const tipoPago = await _create(req.body);
         return res.status(201).json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido creado correctamente...`
+            message: `El tipo de pago ${tipoPago.tipo} ha sido creado correctamente...`
         });
     } catch (error) {
         console.log(error);
@@ -26,8 +26,8 @@ router.post('/signup', async (req, res) => {
 // READ ALL
 router.get('/', async (req, res) => {
     try {
-        const roles = await _findAll();
-        return res.json(roles);
+        const tipos = await _findAll();
+        return res.json(tipos);
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -37,8 +37,8 @@ router.get('/', async (req, res) => {
 // READ ONE
 router.get('/:id', async (req, res) => {
     try {
-        const rol = await _findById(req.params.id);
-        return res.json(rol);
+        const tipoPago = await _findById(req.params.id);
+        return res.json(tipoPago);
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -48,11 +48,11 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.put('/:id', async (req, res) => {
     try {
-        const rol = await _update(req.params.id, req.body);
+        const tipoPago = await _update(req.params.id, req.body);
         return res.json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido actualizado correctamente...`,
-            rol
+            message: `El tipo de pago ${tipoPago.tipo} ha sido actualizado correctamente...`,
+            tipoPago
         });
     } catch (error) {
         console.log(error);

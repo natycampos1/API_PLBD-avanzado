@@ -1,18 +1,32 @@
-// Importo el servicio para CREAR usuarios
-const { create: createUser } = require('../services/usuarios/create');
-
-// Importo el servicio para BUSCAR usuarios
-const { findByUsername } = require('../services/usuarios/find');
+const createService = require('../services/usuarios/create');
+const findService = require('../services/usuarios/find');
+const updateService = require('../services/usuarios/update');
+const deleteService = require('../services/usuarios/delete');
 
 async function _create(usuario) {
-    return await createUser(usuario);
+    return await createService.create(usuario);
 }
 
-async function _findByUsername(username) {
-    return await findByUsername(username);
+async function _findAll() {
+    return await findService.findAll();
+}
+
+async function _findById(id) {
+    return await findService.findById(id);
+}
+
+async function _update(id, data) {
+    return await updateService.update(id, data);
+}
+
+async function _delete(id) {
+    return await deleteService.remove(id);
 }
 
 module.exports = {
     _create,
-    _findByUsername
+    _findAll,
+    _findById,
+    _update,
+    _delete
 };

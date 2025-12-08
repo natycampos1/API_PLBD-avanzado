@@ -5,58 +5,59 @@ const {
     _findById,
     _update,
     _delete
-} = require('../controllers/roles');
+} = require('../controllers/usuarios');
 
 const router = express.Router();
 
 // CREATE
-router.post('/signup', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const rol = await _create(req.body);
+        const user = await _create(req.body);
         return res.status(201).json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido creado correctamente...`
+            message: `Usuario ${user.username} creado correctamente`,
+            user
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json(error.message);
+        return res.status(400).json({ error: error.message });
     }
 });
 
 // READ ALL
 router.get('/', async (req, res) => {
     try {
-        const roles = await _findAll();
-        return res.json(roles);
+        const users = await _findAll();
+        return res.json(users);
     } catch (error) {
         console.log(error);
-        return res.status(500).json(error.message);
+        return res.status(500).json({ error: error.message });
     }
 });
 
 // READ ONE
 router.get('/:id', async (req, res) => {
     try {
-        const rol = await _findById(req.params.id);
-        return res.json(rol);
+        const user = await _findById(req.params.id);
+        return res.json(user);
     } catch (error) {
         console.log(error);
-        return res.status(500).json(error.message);
+        return res.status(404).json({ error: error.message });
     }
 });
 
 // UPDATE
 router.put('/:id', async (req, res) => {
     try {
-        const rol = await _update(req.params.id, req.body);
+        const user = await _update(req.params.id, req.body);
         return res.json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido actualizado correctamente...`,
-            rol
+            message: `Usuario ${user.username} actualizado correctamente`,
+            user
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json(error.message);
+        return res.status(400).json({ error: error.message });
     }
 });
 
@@ -67,7 +68,7 @@ router.delete('/:id', async (req, res) => {
         return res.json(result);
     } catch (error) {
         console.log(error);
-        return res.status(500).json(error.message);
+        return res.status(404).json({ error: error.message });
     }
 });
 

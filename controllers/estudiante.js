@@ -1,10 +1,10 @@
-const createService = require('../services/roles/create');
-const findService = require('../services/roles/find');
-const updateService = require('../services/roles/update');
-const deleteService = require('../services/roles/delete');
+const createService = require('../services/estudiante/create');
+const findService = require('../services/estudiante/find');
+const updateService = require('../services/estudiante/update');
+const deleteService = require('../services/estudiante/delete');
 
-async function _create(rol) {
-    return await createService.create(rol);
+async function _create(estudiante) {
+    return await createService.create(estudiante);
 }
 
 async function _findAll() {

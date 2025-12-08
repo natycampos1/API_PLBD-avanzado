@@ -5,18 +5,20 @@ const {
     _findById,
     _update,
     _delete
-} = require('../controllers/roles');
+} = require('../controllers/encargado');
 
 const router = express.Router();
 
 // CREATE
-router.post('/signup', async (req, res) => {
+router.post('/create', async (req, res) => {
     try {
-        const rol = await _create(req.body);
+        const encargado = await _create(req.body);
+
         return res.status(201).json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido creado correctamente...`
+            message: `El encargado ${encargado.nombre} ${encargado.apellidos} ha sido creado correctamente...`
         });
+
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -26,8 +28,9 @@ router.post('/signup', async (req, res) => {
 // READ ALL
 router.get('/', async (req, res) => {
     try {
-        const roles = await _findAll();
-        return res.json(roles);
+        const encargados = await _findAll();
+        return res.json(encargados);
+
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -37,8 +40,9 @@ router.get('/', async (req, res) => {
 // READ ONE
 router.get('/:id', async (req, res) => {
     try {
-        const rol = await _findById(req.params.id);
-        return res.json(rol);
+        const encargado = await _findById(req.params.id);
+        return res.json(encargado);
+
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -48,12 +52,14 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.put('/:id', async (req, res) => {
     try {
-        const rol = await _update(req.params.id, req.body);
+        const encargado = await _update(req.params.id, req.body);
+
         return res.json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido actualizado correctamente...`,
-            rol
+            message: `El encargado ${encargado.nombre} ${encargado.apellidos} ha sido actualizado correctamente...`,
+            encargado
         });
+
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -65,6 +71,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const result = await _delete(req.params.id);
         return res.json(result);
+
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);

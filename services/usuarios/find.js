@@ -1,23 +1,17 @@
 const db = require('../../models');
 
-async function _findByUsername(username) {
-    console.log("Buscando usuario en BD:", username);
-    console.log("Modelos disponibles:", Object.keys(db));
+async function findAll() {
+    const users = await db.usuario.findAll({ include: ['rol'] });
+    return users.map(user => user.get({ plain: true }));
+}
 
-    if (!username) {
-        console.log("ERROR: Username viene vacío o undefined.");
-        return null;  // Evita hacer una búsqueda inválida
-    }
-
-    const user = await db.usuario.findOne({
-        where: { username }   
-    });
-
-    console.log("Resultado de búsqueda en Oracle:", user);
-
-    return user;
+async function findById(id) {
+    const user = await db.usuario.findByPk(id, { include: ['rol'] });
+    if (!user) throw new Error('Usuario no encontrado');
+    return user.get({ plain: true });
 }
 
 module.exports = {
-    _findByUsername
+    findAll,
+    findById
 };

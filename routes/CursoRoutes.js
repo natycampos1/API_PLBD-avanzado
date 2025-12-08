@@ -5,20 +5,22 @@ const {
     _findById,
     _update,
     _delete
-} = require('../controllers/roles');
+} = require('../controllers/curso');
 
 const router = express.Router();
 
 // CREATE
-router.post('/signup', async (req, res) => {
+router.post('/create', async (req, res) => {
     try {
-        const rol = await _create(req.body);
+        const curso = await _create(req.body);
+
         return res.status(201).json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido creado correctamente...`
+            message: `El curso ${curso.nombre} ha sido creado correctamente...`
         });
+
     } catch (error) {
-        console.log(error);
+        console.log("ERROR CREATE:", error);
         return res.status(500).json(error.message);
     }
 });
@@ -26,10 +28,10 @@ router.post('/signup', async (req, res) => {
 // READ ALL
 router.get('/', async (req, res) => {
     try {
-        const roles = await _findAll();
-        return res.json(roles);
+        const cursos = await _findAll();
+        return res.json(cursos);
     } catch (error) {
-        console.log(error);
+        console.log("ERROR GET ALL:", error);
         return res.status(500).json(error.message);
     }
 });
@@ -37,10 +39,10 @@ router.get('/', async (req, res) => {
 // READ ONE
 router.get('/:id', async (req, res) => {
     try {
-        const rol = await _findById(req.params.id);
-        return res.json(rol);
+        const curso = await _findById(req.params.id);
+        return res.json(curso);
     } catch (error) {
-        console.log(error);
+        console.log("ERROR GET ID:", error);
         return res.status(500).json(error.message);
     }
 });
@@ -48,14 +50,15 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.put('/:id', async (req, res) => {
     try {
-        const rol = await _update(req.params.id, req.body);
+        const curso = await _update(req.params.id, req.body);
+
         return res.json({
             status: 'success',
-            message: `El rol ${rol.cargo} ha sido actualizado correctamente...`,
-            rol
+            message: 'Curso actualizado correctamente',
+            curso
         });
     } catch (error) {
-        console.log(error);
+        console.log("ERROR UPDATE:", error);
         return res.status(500).json(error.message);
     }
 });
@@ -63,10 +66,10 @@ router.put('/:id', async (req, res) => {
 // DELETE
 router.delete('/:id', async (req, res) => {
     try {
-        const result = await _delete(req.params.id);
-        return res.json(result);
+        const msg = await _delete(req.params.id);
+        return res.json(msg);
     } catch (error) {
-        console.log(error);
+        console.log("ERROR DELETE:", error);
         return res.status(500).json(error.message);
     }
 });
