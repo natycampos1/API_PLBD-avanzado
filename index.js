@@ -12,13 +12,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+app.use(express.static('Front'));
+
 // Rutas
 app.use('/auth', require('./routes/auth'));
 app.use('/roles', require('./routes/RolRoutes'));
 app.use('/profesores', require('./routes/ProfesorRoutes'));
 app.use('/estudiantes', require('./routes/EstudianteRoutes'));
 app.use('/carreras', require('./routes/CarreraRoutes'));
-app.use('/cursos', require('./routes/CursoRoutes'));
+app.use('/curso', require('./routes/CursoRoutes'));
 app.use('/matriculas', require('./routes/MatriculaRoutes'));
 app.use('/asistencias', require('./routes/AsistenciaRoutes'));
 app.use('/encargados', require('./routes/EncargadoRoutes'));
