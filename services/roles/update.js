@@ -1,6 +1,3 @@
-
-
-
 const db = require('../../models');
  
 async function update(id, data) {

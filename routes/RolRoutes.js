@@ -27,7 +27,7 @@ router.post('/signup', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const roles = await _findAll();
-        return res.json(roles);
+    return res.json(roles);
     } catch (error) {
         console.log(error);
         return res.status(500).json(error.message);
@@ -71,16 +71,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-
-// LISTAR TODOS
-router.get('/', async (req, res) => {
-    try {
-        const roles = await rolesController._findAll();
-        res.json(roles);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
- 
 module.exports = router;
-
