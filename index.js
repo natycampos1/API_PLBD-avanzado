@@ -28,7 +28,7 @@ app.use('/encargados', require('./routes/EncargadoRoutes'));
 app.use('/encargado-estudiante', require('./routes/EncargadoEstudianteRoutes'));
 app.use('/pagos', require('./routes/PagoRoutes'));
 app.use('/tipos-pago', require('./routes/TipoPagoRoutes'));
-app.use('/usuario', require('./routes/UsuarioRoutes'));
+app.use('/usuarios', require('./routes/UsuarioRoutes'));
 
 
 

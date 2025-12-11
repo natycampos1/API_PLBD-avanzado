@@ -191,14 +191,16 @@
                 estado: document.getElementById("estadoRol").value
             };
 
-            const res = await fetch(API + "/signup", {
+            const res = await fetch("/roles/signup", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
 
-            alert(await res.text());
+            const json = await res.json();
+            alert(json.message || "Rol creado");
         }
+
 
         /* LISTAR */
         async function listarRoles() {
@@ -239,23 +241,29 @@
                 estado: document.getElementById("updateEstado").value
             };
 
-            const res = await fetch(API + "/" + id, {
+            const res = await fetch(`/roles/${id}`, {
                 method: "PUT",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
 
-            alert(await res.text());
+            const json = await res.json();
+            alert(json.message || "Rol actualizado");
         }
+
 
         /* ELIMINAR */
         async function eliminarRol() {
             const id = document.getElementById("deleteId").value;
 
-            const res = await fetch(API + "/" + id, { method: "DELETE" });
+            const res = await fetch(`/roles/${id}`, {
+                method: "DELETE"
+            });
 
-            alert(await res.text());
+            const json = await res.json();
+            alert(json.message || "Rol eliminado");
         }
+
     </script>
 
 </body>
